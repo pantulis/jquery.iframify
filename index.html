@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>iframify</title>
+	<style type="text/css" media="screen">
+	  * {
+	    margin:0;
+	    padding:0;
+	  }
+	  
+	  body,
+	  html {
+	    overflow:hidden;
+	  }
+	  
+	  iframe,
+	  #nav {
+	    width:100%;
+	    position:absolute;
+	  }
+	  
+	  iframe {
+	    height:95%;
+	  }
+	  
+	  #nav {
+      height:5%;
+      bottom:0;
+      background-color:#000;
+/*      text-align:center;*/
+	  }
+	  
+	  #nav.loading {
+	    background:#000 url('images/loader.gif') no-repeat center center;
+	  }
+	  
+	  #nav a {
+	    background:#000 url('images/controls.png') no-repeat;
+	    width:29px;
+	    height:26px;
+	    opacity:.4;
+	    display:-moz-inline-stack;
+	    display:inline-block;
+	    *display:inline;
+	    text-align:left;
+	    text-indent:-9999em;
+	    vertical-align:middle;
+	    margin:0 10px;
+	    position:relative;
+	    top:50%;
+	    margin-top:-13px;
+	  }
+	  
+	  #nav a:hover {
+	    opacity:.7;
+	  }
+	  
+	  #nav a:active {
+	    opacity:1;
+	  }
+	  
+	  #nav .prev {
+	    background-position:left bottom;
+	  }
+	  
+	  #nav .next {
+	    background-position:right bottom;
+	  }
+	  
+	  #nav .play {
+      background-position:right top;
+	  }
+	  
+	  #nav .stop {
+      background-position:left top;
+	  }
+	  
+	  
+	  .timer {
+	    display:-moz-inline-stack;
+	    display:inline-block;
+	    *display:inline;
+	    width:300px;
+	    height:20px;
+	    position:relative;
+	  }
+	  
+	  .timer span {
+	    position:absolute;
+	    left:0;
+	    top:0;
+	    height:100%;
+	    background:red;
+	    width:0%;
+	  }
+	 
+	</style>
+</head>
+
+<body>
+
+
+
+<div id="viewport">
+  <iframe src="http://blog.vieron.net" frameborder="0"></iframe>
+  <iframe src="http://salylaurel.dev" frameborder="0"></iframe>
+  <iframe src="http://ainiesta.com" frameborder="0"></iframe>
+  <iframe src="http://cantorrodista.com" frameborder="0"></iframe>
+</div><!-- .viewport -->
+
+<div id="nav">
+  
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script src="javascripts/jquery.iframify.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    
+    $('body').iframify();
+    
+  })
+</script>
+
+
+</body>
+</html>
