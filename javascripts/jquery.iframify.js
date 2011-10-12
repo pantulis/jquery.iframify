@@ -241,7 +241,7 @@
     controls_wrapper : '#nav',
     key_navigation : true,
     autoplay : true,
-    autoplay_interval : 2000,
+    autoplay_interval : 10000,
     init_when_loaded : true,
     beforeFilter : function(n){ },
     afterFilter : function(n){ }
