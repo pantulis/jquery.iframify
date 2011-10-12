@@ -25,12 +25,14 @@
 	  
 	  iframe {
 	    height:95%;
+	    z-index:1;
 	  }
 	  
 	  #nav {
       height:5%;
       bottom:0;
       background-color:#000;
+      z-index:10;
 /*      text-align:center;*/
 	  }
 	  
@@ -98,6 +100,11 @@
 	    width:0%;
 	  }
 	 
+	  .flickr {
+      height: 134%;
+      top: -280px;
+	  }
+	 
 	</style>
 </head>
 
@@ -106,10 +113,10 @@
 
 
 <div id="viewport">
-  <iframe src="http://the-cocktail.com" frameborder="0"></iframe>
+  <iframe class="flickr" align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=44237637@N05&set_id=&text=" frameborder="0" scrolling="no"></iframe>
   <iframe src="http://the-cocktail.com/es/blog" frameborder="0"></iframe>
   <iframe src="http://iwannagothere.com" frameborder="0"></iframe>
-  <iframe src="http://pedrodelhierro.com" frameborder="0"></iframe>
+  <iframe src="http://thecocktail.github.com/informe_redes_sociales/" frameborder="0"></iframe>
 </div><!-- .viewport -->
 
 <div id="nav">

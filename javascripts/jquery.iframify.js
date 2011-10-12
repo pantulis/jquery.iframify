@@ -131,6 +131,7 @@
                 e.preventDefault();
                 $next.trigger('click');
               }else if (k == '32'){
+                e.preventDefault();
                 togglePlay();
               };
             });
