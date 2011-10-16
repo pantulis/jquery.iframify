@@ -22,7 +22,7 @@
 	    width:100%;
 	    position:absolute;
 	  }
-	  
+
 	  iframe {
 	    height:95%;
 	    z-index:1;
@@ -80,8 +80,17 @@
 	  #nav .stop {
       background-position:left top;
 	  }
-	  
-	  
+
+	  #nav .title {
+              color: white;
+              font-family: sans-serif;
+              font-weight: bold;
+              font-size: 36px;
+              margin-left: 200px;
+//              margin-top: -8px;
+
+	   }
+
 	  .timer {
 	    display:-moz-inline-stack;
 	    display:inline-block;
@@ -111,17 +120,8 @@
 <body>
 
 
-
-<div id="viewport">
-  <iframe class="flickr" align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=44237637@N05&set_id=&text=" frameborder="0" scrolling="no"></iframe>
-  <iframe src="http://the-cocktail.com/es/blog" frameborder="0"></iframe>
-  <iframe src="http://iwannagothere.com" frameborder="0"></iframe>
-  <iframe src="http://thecocktail.github.com/informe_redes_sociales/" frameborder="0"></iframe>
-</div><!-- .viewport -->
-
-<div id="nav">
-  
-</div>
+<div id="viewport"></div>
+<div id="nav"></div>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 <script src="javascripts/jquery.iframify.js" type="text/javascript" charset="utf-8"></script>
@@ -129,7 +129,16 @@
 <script type="text/javascript" charset="utf-8">
   $(function(){
     
-    $('body').iframify();
+    $('body').iframify({
+    iframes: [{url: 'http://humming.the-cocktail.com', delay: 50000, title: 'The Cocktail: nuestros sites en tiempo real'},
+              {url: 'http://the-cocktail.com/', delay: 10000, title: 'http://the-cocktail.com'},
+			  {url: 'http://flickr.com/slideShow/index.gne?group_id=&user_id=44237637@N05&set_id=', delay: 5000, title: 'Wild Congress 2011'},
+
+              {url: 'http://the-cocktail.com/es/blog', delay: 10000, title: 'El blog de The Cocktail'},
+              {url: 'http://iwannagothere.com',        delay: 10000, title: 'Iwannagothere'},
+              {url: 'http://cool-tabs.com/',           delay: 10000, title: 'Cool Tabs'}
+             ]
+    });
     
   })
 </script>
