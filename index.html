@@ -29,7 +29,7 @@
 	  }
 	  
 	  #nav {
-      height:5%;
+      padding:.5% 0;
       bottom:0;
       background-color:#000;
       z-index:2000;
@@ -40,21 +40,23 @@
 	    background:#000 url('images/loader.gif') no-repeat center center;
 	  }
 	  
+	  #frame_title,
+	  #nav a {
+	    display:-moz-inline-stack;
+	    display:inline-block;
+	    *display:inline;
+	    text-align:left;
+	    vertical-align:middle;
+	  }
+	  
 	  #nav a {
 	    background:#000 url('images/controls.png') no-repeat;
 	    width:29px;
 	    height:26px;
 	    opacity:.4;
-	    display:-moz-inline-stack;
-	    display:inline-block;
-	    *display:inline;
-	    text-align:left;
 	    text-indent:-9999em;
-	    vertical-align:middle;
-	    margin:0 10px;
+	    margin:10px 10px;
 	    position:relative;
-	    top:50%;
-	    margin-top:-13px;
 	  }
 	  
 	  #nav a:hover {
@@ -82,13 +84,12 @@
 	  }
 
 	  #nav .title {
-              color: white;
-              font-family: sans-serif;
-              font-weight: bold;
-              font-size: 36px;
-              margin-left: 200px;
-//              margin-top: -8px;
-
+      color: white;
+      font-family: sans-serif;
+      font-weight: bold;
+      font-size: 34px;
+      padding-top:8px;
+      margin-left:10px;
 	   }
 
 	  .timer {
@@ -109,10 +110,6 @@
 	    width:0%;
 	  }
 	 
-	  .flickr {
-      height: 134%;
-      top: -280px;
-	  }
 	 
 	</style>
 </head>
@@ -129,11 +126,10 @@
 <script type="text/javascript" charset="utf-8">
   $(function(){
     
-    $('body').iframify({
-    iframes: [{url: 'http://humming.the-cocktail.com', delay: 50000, title: 'The Cocktail: nuestros sites en tiempo real'},
+    $('#viewport').iframify({
+    iframes: [
+              {url: 'http://humming.the-cocktail.com', delay: 50000, title: 'The Cocktail: nuestros sites en tiempo real'},
               {url: 'http://the-cocktail.com/', delay: 10000, title: 'http://the-cocktail.com'},
-			  {url: 'http://flickr.com/slideShow/index.gne?group_id=&user_id=44237637@N05&set_id=', delay: 5000, title: 'Wild Congress 2011'},
-
               {url: 'http://the-cocktail.com/es/blog', delay: 10000, title: 'El blog de The Cocktail'},
               {url: 'http://iwannagothere.com',        delay: 10000, title: 'Iwannagothere'},
               {url: 'http://cool-tabs.com/',           delay: 10000, title: 'Cool Tabs'}

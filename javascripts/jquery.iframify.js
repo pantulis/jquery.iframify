@@ -1,7 +1,6 @@
 // 
 //  jquery.iframify.js
 //  FullWindow iframe slideshow
-//  by vieron - http://github.com/vieron
 //
 
 (function($) {
@@ -10,8 +9,8 @@
 
         var opts = $.extend({}, $.fn.iframify.defaults, options),
         $wrap = $(this),
-
-        $nav = $(opts.controls_wrapper, $wrap),
+        $elements = false,
+        $nav = $(opts.controls_wrapper),
         $prev = $('<a href="#" class="arrow prev">Prev</a>'),
         $next = $('<a href="#" class="arrow next">Next</a>'),
         $play = $('<a href="#" class="play">Play</a>'),
@@ -28,31 +27,33 @@
         var animateTo = function($el, pos, callback){
             callback || (callback = function(){});
             $el.animate({'left': pos}, 'normal', callback);
-        }
-
-        getNext = function(n, number){
+        },
+        
+        
+        get = {
+          next : function(n, number){
             var next_element = n+1;
             next_element = (next_element>=$elements.length) ? 0 : next_element;
             return number === true ? next_element : $elements.eq(next_element);
-        },
-
-        getPrev = function(n, number){
+          },
+          prev : function(n, number){
             var prev_element = n-1;
             prev_element = (prev_element<0) ? $elements.length-1 : prev_element;
             return number === true ? prev_element : $elements.eq(prev_element);
+          }
         },
 
         animateToVisible = function(dir, callback){
             callback || (callback = function(){});
             switch(dir){
             case 'left':
-                var $nextNext = getNext(getNext(active_element, true));
+                var $nextNext = get.next(get.next(active_element, true));
                 $nextNext.css('left', opts.elements_positions.right_hidden);
                 animateTo($elements.eq(active_element), opts.elements_positions.left , callback);
                 animateTo($nextNext, opts.elements_positions.right);
                 break;
             case 'right':
-                var $prevPrev = getPrev(getPrev(active_element, true));
+                var $prevPrev = get.prev(get.prev(active_element, true));
                 $prevPrev.css('left', opts.elements_positions.left_hidden);
                 animateTo($elements.eq(active_element), opts.elements_positions.right, callback );
                 
@@ -67,14 +68,14 @@
             callback || (callback = function(){});
             switch(dir){
             case 'left':
-                var $next = getNext(active_element);
+                var $next = get.next(active_element);
                 animateTo($next, opts.elements_positions.right_hidden, function(){
                     $next.css(opts.elements_positions.left_hidden);
                     callback();
                 });
                 break;
             case 'right':
-                var $prev = getPrev(active_element);
+                var $prev = get.prev(active_element);
                 animateTo($prev, opts.elements_positions.left_hidden, function(){
                     $prev.css(opts.elements_positions.right_hidden);
                     callback();
@@ -91,11 +92,11 @@
             $elements.css('z-index', 2);
             switch(dir){
             case 'left':
-                var $next = getNext(active_element).css('z-index', 100);
+                var $next = get.next(active_element).css('z-index', 100);
                 animateTo($next, opts.elements_positions.active, callback);
                 break;
             case 'right':
-                var $prev = getPrev(active_element).css('z-index', 100);
+                var $prev = get.prev(active_element).css('z-index', 100);
                 animateTo($prev, opts.elements_positions.active, callback);
                 break;
             default:
@@ -159,7 +160,7 @@
             if (!$elements.is(':animated')) {
                 if (dir == 'next') {
                     animateToVisible('left', function(){
-                        active_element = getNext(active_element, true);
+                        active_element = get.next(active_element, true);
                     });
                     animateToHidden('right');
                     animateToActive('left');
@@ -169,10 +170,12 @@
                     animateToVisible('right');
                     animateToActive('right');
                     animateToHidden('left', function(){
-                        active_element = getPrev(active_element, true)
+                        active_element = get.prev(active_element, true)
                     }	);
                 };
             };
+            
+            $frame_title.html(opts.iframes[get[(dir == 'next' ? 'next' : 'prev')](active_element, true)]['title']);
             
             if (!by_code) stop();
             
@@ -187,19 +190,17 @@
         },
 
         generateIframes = function() {
-            var $viewport = $('#viewport');
-            for(var idx=0; idx < opts.iframes.length; idx ++) {
-                $viewport.append($("<iframe src='" + opts.iframes[idx]['url'] + "'></iframe>"));
+            var iframes = '';
+            for(var idx=0, il = opts.iframes.length; idx < il; idx ++) {
+              iframes += '<iframe src="' + opts.iframes[idx]['url'] + '" frameborder="0"></iframe>';
             };
-            $elements = $('#viewport',$wrap).children();
+            $elements = $(iframes).appendTo($wrap);
         },
 
         next_timeout = function() {
-            next_element = getNext(active_element, true);
+            next_element = get.next(active_element, true);
             play_interval = setTimeout(function() {
                 goTo('next', true);
-
-                $('#frame_title').html(opts.iframes[getNext(active_element, true)]['title']);
                 next_timeout();
             }, opts.iframes[next_element]['delay']);
         }
@@ -219,16 +220,24 @@
         },
         
         init = function(){
-            $nav.append($controls);
-            generateIframes();
             positionateElements();
             UIEvents();
             if (opts.key_navigation) keyboardEvents();
-            if (opts.init_when_loaded) $nav.animate({height : '5%'}, 800, 'swing').removeClass('loading');
+            if (opts.init_when_loaded){
+              $nav.animate({height : '5%'}, 800, 'swing', function(){
+                  $nav.append($controls);
+              }).removeClass('loading');
+            } 
         }
         
-
-        init();
+        generateIframes();
+        
+        if (opts.init_when_loaded) {
+          $nav.animate({height : '100%'}, 300, 'swing').addClass('loading');
+          $elements.load(onLoadHandler);
+        }else{
+          init();
+        }
 
         
 
